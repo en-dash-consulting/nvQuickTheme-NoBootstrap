@@ -35,21 +35,9 @@ var paths = {
     src: './node_modules/font-awesome/css/font-awesome.min.css',
     dest: './dist/css/'
   },
-  slimMenu: {
-    src: './src/assets/jquery.slimmenu.min.js',
-    dest: './dist/js/'
-  },
   normalize: {
     src: './node_modules/normalize.css/normalize.css',
     dest: './dist/css/'
-  },
-  bsCss: {
-    src: './node_modules/bootstrap/dist/css/bootstrap.min.*',
-    dest: './dist/css/'
-  },
-  bsJs: {
-    src: './node_modules/bootstrap/dist/js/bootstrap.bundle.min.*',
-    dest: './dist/js/'
   },
   images: {
     src: './src/images/**/*.{jpg,jpeg,png,gif}',
@@ -121,13 +109,6 @@ function faCssInit() {
     .pipe(notify({message: '<%= file.relative %> distributed!', title : 'faCssInit', sound: false}));
 }
 
-// Copy jquery.slimmenu.min.js from src/assets to dist/js
-function slimMenuInit() {
-  return gulp.src(paths.slimMenu.src)
-    .pipe(gulp.dest(paths.slimMenu.dest))
-    .pipe(notify({message: '<%= file.relative %> distributed!', title : 'slimMenuInit', sound: false}));
-}
-
 // Compile normalize.css from node_modules and copy to dist/js
 function normalizeInit() {
   return gulp.src(paths.normalize.src, { sourcemaps: true })
@@ -139,19 +120,6 @@ function normalizeInit() {
   .pipe(notify({message: '<%= file.relative %> compiled and distributed!', title : 'normalizeInit', sound: false}));
 }
 
-// Copy bootstrap CSS from node_modules to dist/css
-function bsCssInit() {
-  return gulp.src(paths.bsCss.src)
-    .pipe(gulp.dest(paths.bsCss.dest))
-    .pipe(notify({message: '<%= file.relative %> distributed!', title : 'bsCssInit', sound: false}));
-}
-
-// Copy bootstrap JS from node_modules to dist/js
-function bsJsInit() {
-  return gulp.src(paths.bsJs.src)
-    .pipe(gulp.dest(paths.bsJs.dest))
-    .pipe(notify({message: '<%= file.relative %> distributed!', title : 'bsJsInit', sound: false}));
-}
 /*------------------------------------------------------*/
 /* END INIT TASKS --------------------------------------*/
 /*------------------------------------------------------*/
@@ -310,7 +278,7 @@ function watch() {
 }
 
 // gulp init
-var init = gulp.series(fontsInit, faFontsInit, faCssInit, slimMenuInit, normalizeInit, bsCssInit, bsJsInit);
+var init = gulp.series(fontsInit, faFontsInit, faCssInit, normalizeInit);
 
 // gulp build
 var build = gulp.series(init, styles, scripts, images, containers, manifest);
@@ -329,10 +297,7 @@ var package = gulp.series(build, ziptemp, zippackage, cleanup);
 exports.fontsInit = fontsInit;
 exports.faFontsInit = faFontsInit;
 exports.faCssInit = faCssInit;
-exports.slimMenuInit = slimMenuInit;
 exports.normalizeInit = normalizeInit;
-exports.bsCssInit = bsCssInit;
-exports.bsJsInit = bsJsInit;
 exports.images = images;
 exports.styles = styles;
 exports.scripts = scripts;

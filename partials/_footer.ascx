@@ -1,9 +1,9 @@
 <footer class="bg-light-grey">
   <div class="container upper">
-    <div class="row py-5">
-      <div id="FooterPaneOne" class="col-md-4" runat="server"></div>
-      <div id="FooterPaneTwo" class="col-md-4" runat="server"></div>
-      <div id="FooterPaneThree" class="col-md-4" runat="server"></div>
+    <div class="row">
+      <div id="FooterPaneOne" runat="server"></div>
+      <div id="FooterPaneTwo" runat="server"></div>
+      <div id="FooterPaneThree" runat="server"></div>
     </div>
   </div>
   <div class="container-fluid bg-primary disclaimer">

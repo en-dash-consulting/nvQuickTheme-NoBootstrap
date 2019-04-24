@@ -1,9 +1,9 @@
 {
-	"project": "nvQuickTheme",
+	"project": "nvQuickTheme-WithMods",
 	"version": "2.0.0",
-	"author": "TK Sheppard &amp; David Poindexter",
-	"company": "nvisionative",
-	"url": "www.nvquicktheme.com",
-    "email": "support@nvisionative.com",
-    "description": "A DNN Theme Dev Framework"
+	"author": "Nick Daniel",
+	"company": "En Dash Consulting",
+	"url": "https://endash.us",
+    "email": "nick@endash.us",
+    "description": "A modified version of nvQuickTheme by nvisionative"
 }

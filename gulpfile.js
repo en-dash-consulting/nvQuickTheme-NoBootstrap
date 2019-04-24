@@ -27,14 +27,6 @@ var paths = {
     src: './src/fonts/*',
     dest: './dist/fonts/'
   },
-  faFonts: {
-    src: './node_modules/font-awesome/fonts/*',
-    dest: './dist/fonts/'
-  },
-  faCss: {
-    src: './node_modules/font-awesome/css/font-awesome.min.css',
-    dest: './dist/css/'
-  },
   normalize: {
     src: './node_modules/normalize.css/normalize.css',
     dest: './dist/css/'
@@ -95,20 +87,6 @@ function fontsInit() {
     .pipe(notify({message: '<%= file.relative %> distributed!', title : 'fontsInit', sound: false}));
 }
 
-// Copy font-awesome fonts from node_modules to dist/fonts
-function faFontsInit() {
-  return gulp.src(paths.faFonts.src)
-    .pipe(gulp.dest(paths.faFonts.dest))
-    .pipe(notify({message: '<%= file.relative %> distributed!', title : 'faFontsInit', sound: false}));
-}
-
-// Copy font-awesome CSS from node_modules to dist/css
-function faCssInit() {
-  return gulp.src(paths.faCss.src)
-    .pipe(gulp.dest(paths.faCss.dest))
-    .pipe(notify({message: '<%= file.relative %> distributed!', title : 'faCssInit', sound: false}));
-}
-
 // Compile normalize.css from node_modules and copy to dist/js
 function normalizeInit() {
   return gulp.src(paths.normalize.src, { sourcemaps: true })
@@ -119,7 +97,6 @@ function normalizeInit() {
   .pipe(gulp.dest(paths.normalize.dest, { sourcemaps: '.' }))
   .pipe(notify({message: '<%= file.relative %> compiled and distributed!', title : 'normalizeInit', sound: false}));
 }
-
 /*------------------------------------------------------*/
 /* END INIT TASKS --------------------------------------*/
 /*------------------------------------------------------*/
@@ -261,6 +238,12 @@ function cleanup() {
     .pipe(clean())
     .pipe(notify({message: 'temp folder cleaned up!', title : 'cleanup', sound: false}));
 }
+
+function cleandist() {
+  return gulp.src('dist/')
+    .pipe(clean())
+    .pipe(notify({message: 'dist folder cleared', title : 'cleandist', sound: false}));
+}
 /*------------------------------------------------------*/
 /* END PACKAGING TASKS ---------------------------------*/
 /*------------------------------------------------------*/
@@ -278,7 +261,7 @@ function watch() {
 }
 
 // gulp init
-var init = gulp.series(fontsInit, faFontsInit, faCssInit, normalizeInit);
+var init = gulp.series(cleandist, fontsInit, normalizeInit);
 
 // gulp build
 var build = gulp.series(init, styles, scripts, images, containers, manifest);
@@ -295,8 +278,6 @@ var package = gulp.series(build, ziptemp, zippackage, cleanup);
 /*------------------------------------------------------*/
 // You can use CommonJS `exports` module notation to declare tasks
 exports.fontsInit = fontsInit;
-exports.faFontsInit = faFontsInit;
-exports.faCssInit = faCssInit;
 exports.normalizeInit = normalizeInit;
 exports.images = images;
 exports.styles = styles;
@@ -309,6 +290,7 @@ exports.zipelse = zipelse;
 exports.ziptemp = ziptemp;
 exports.zippackage = zippackage;
 exports.cleanup = cleanup;
+exports.cleandist = cleandist;
 exports.watch = watch;
 exports.init = init;
 exports.build = build;
